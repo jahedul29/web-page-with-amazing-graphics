@@ -12,9 +12,13 @@
 
 2. Install the dependencies
    nodejs version 18 recommended
-   `   npm install`
+   ```
+   npm install
+   ```
    or
-   `    yarn`
+   ```
+    yarn
+   ```
 3. run the server
    ```
    npm run dev
@@ -24,7 +28,7 @@
    yarn dev
    ```
 
-How it's work:
+### How it's work:
 
 1. if solar parameter is high (>4), in the upper position showing the Sun, when solar is medium (>1) showing the sun behind a cloud, when the solar is very low (<=1>) or zero show only the cloud.
 2. If the home value is greater than 3, it's showing red home. When the home value is less or equal to 3, it's showing a green home.
