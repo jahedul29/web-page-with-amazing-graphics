@@ -7,15 +7,14 @@
 1. Clone the application from git
 
    ```
-   git clone repo_link
+   git clone https://github.com/jahedul29/web-page-with-amazing-graphics
    ```
 
 2. Install the dependencies
    nodejs version 18 recommended
    `   npm install`
    or
-   `     yarn
- `
+   `    yarn`
 3. run the server
    ```
    npm run dev

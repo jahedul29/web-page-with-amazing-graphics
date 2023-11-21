@@ -32,6 +32,7 @@ type IEnergyData = {
 function App() {
   const [energyData, setEnergyData] = useState<IEnergyData | null>(null);
   const [isLoading, setLoadingData] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const solarAnimationData =
     parseFloat(energyData?.solar || "0") > 4
@@ -67,6 +68,7 @@ function App() {
   console.log({ energyData });
 
   const fetchData = async () => {
+    setIsError(false);
     try {
       const response = await fetch("http://2.233.121.120:1085/energy.php");
       if (!response.ok) {
@@ -78,6 +80,7 @@ function App() {
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoadingData(false);
+      setIsError(true);
     }
   };
 
@@ -92,6 +95,7 @@ function App() {
   return (
     <div className="min-h-screen">
       {isLoading && <Overlay type="loading" />}
+      {!isLoading && isError && <Overlay type="no-data" />}
       {!isLoading &&
         parseFloat(energyData?.powerwall_connection_status || "0") === 0 &&
         isLoading && <Overlay type="no-data" />}
