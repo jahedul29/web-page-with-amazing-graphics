@@ -1,16 +1,12 @@
-import Lottie from "react-lottie";
-import arrowAnimationData from "../assets/lotties/arrow.json";
+import { FaLongArrowAltUp } from "react-icons/fa";
 
-const Arrow = ({ type = "up" }: { type: "down" | "up" | "left" | "right" }) => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: arrowAnimationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
+const Arrow = ({
+  type = "up",
+  className = "",
+}: {
+  type: "down" | "up" | "left" | "right";
+  className?: string;
+}) => {
   return (
     <div
       className={`transition-all duration-1000 ${
@@ -23,17 +19,9 @@ const Arrow = ({ type = "up" }: { type: "down" | "up" | "left" | "right" }) => {
           : type === "right"
           ? "rotate-90"
           : ""
-      } `}
+      }`}
     >
-      <Lottie
-        options={defaultOptions}
-        height={300}
-        width={150}
-        style={{
-          marginLeft: "auto",
-          color: "red",
-        }}
-      />
+      <FaLongArrowAltUp className={className} />
     </div>
   );
 };

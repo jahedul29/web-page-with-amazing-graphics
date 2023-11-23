@@ -1,16 +1,9 @@
 import Lottie from "react-lottie";
 import loadingAnimation from "../assets/lotties/loading.json";
 import noDataAnimation from "../assets/lotties/no-data.json";
+import { defaultLottieOptions } from "../utils";
 
 const Overlay = ({ type }: { type?: "loading" | "no-data" }) => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
   return (
     <div className="fixed inset-0 bg-gray-700 opacity-80 z-10 flex items-center justify-center flex flex-col">
       {type === "no-data" && (
@@ -21,7 +14,7 @@ const Overlay = ({ type }: { type?: "loading" | "no-data" }) => {
 
       <Lottie
         options={{
-          ...defaultOptions,
+          ...defaultLottieOptions,
           animationData:
             type === "loading"
               ? loadingAnimation

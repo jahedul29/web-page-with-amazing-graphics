@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import Lottie from "react-lottie";
 import "./App.css";
 
-import batteryFullAnimationData from "./assets/lotties/battery-full.json";
-import batteryLowAnimationData from "./assets/lotties/battery-low.json";
+import { FaHome } from "react-icons/fa";
+import { MdBatteryChargingFull } from "react-icons/md";
+// import batteryFullAnimationData from "./assets/lotties/battery-full.json";
+// import batteryLowAnimationData from "./assets/lotties/battery-low.json";
+import { GiWatchtower } from "react-icons/gi";
 import cloudAnimationData from "./assets/lotties/cloud.json";
-import gridRedAnimation from "./assets/lotties/grid-low.json";
-import gridGreenAnimation from "./assets/lotties/grid.json";
-import homeGreenAnimationData from "./assets/lotties/home-green.json";
-import homeRedAnimationData from "./assets/lotties/house-red.json";
 import sunWithCloudAnimationData from "./assets/lotties/sun-with-cloud.json";
 import sunAnimationData from "./assets/lotties/sun.json";
 import Arrow from "./components/Arrow";
 import Overlay from "./components/Overlay";
+import { defaultLottieOptions, getColor } from "./utils";
 
 type IEnergyData = {
   batt: string;
@@ -40,30 +40,6 @@ function App() {
       : parseFloat(energyData?.solar || "0") > 1
       ? sunWithCloudAnimationData
       : cloudAnimationData;
-
-  const homeAnimationData =
-    parseFloat(energyData?.home || "0") > 3
-      ? homeRedAnimationData
-      : homeGreenAnimationData;
-
-  const batteryAnimationData =
-    parseFloat(energyData?.batt_perc || "0") > 19
-      ? batteryFullAnimationData
-      : batteryLowAnimationData;
-
-  const gridAnimationData =
-    parseFloat(energyData?.grid || "0") > -4 &&
-    parseFloat(energyData?.grid || "0") < 8
-      ? gridGreenAnimation
-      : gridRedAnimation;
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
 
   console.log({ energyData });
 
@@ -104,50 +80,122 @@ function App() {
         <h2 className="text-white font-medium text-xl">
           {new Date(energyData?.date || "").toDateString()}
         </h2>
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
+          <p
+            className={`font-medium relative top-10 ${getColor(
+              parseFloat(energyData?.solar || "0"),
+              0,
+              6
+            )}`}
+          >
+            Solar: {parseFloat(energyData?.solar || "0")}
+          </p>
           <Lottie
-            options={{ ...defaultOptions, animationData: solarAnimationData }}
+            options={{
+              ...defaultLottieOptions,
+              animationData: solarAnimationData,
+            }}
             height={200}
             width={200}
           />
         </div>
-        <div className="grid grid-cols-2">
+        <div className="flex justify-center items-center gap-80 my-20">
           <div>
-            <Lottie
-              options={{ ...defaultOptions, animationData: homeAnimationData }}
-              height={300}
-              width={300}
+            <p
+              className={`font-medium ${getColor(
+                parseFloat(energyData?.home || "0"),
+                0,
+                9
+              )}`}
+            >
+              Home: {parseFloat(energyData?.home || "0")}
+            </p>
+            <FaHome
+              className={`text-[200px] ${getColor(
+                parseFloat(energyData?.home || "0"),
+                0,
+                9
+              )}`}
             />
           </div>
           <div className="flex justify-center">
-            <Lottie
-              options={{
-                ...defaultOptions,
-                animationData: batteryAnimationData,
-              }}
-              height={300}
-              width={200}
-              style={{
-                margin: 0,
-              }}
-            />
-            <Arrow
-              type={parseFloat(energyData?.batt || "0") > 0 ? "down" : "up"}
-            />
+            <div>
+              <p
+                className={`font-medium ${getColor(
+                  parseFloat(energyData?.batt_perc || "0"),
+                  0,
+                  100
+                )}`}
+              >
+                Battery Percentage: {parseFloat(energyData?.batt_perc || "0")}
+              </p>
+              <MdBatteryChargingFull
+                className={`text-[200px] ${getColor(
+                  parseFloat(energyData?.batt_perc || "0"),
+                  0,
+                  100
+                )}`}
+              />
+            </div>
+            <div className="flex  flex-col justify-center items-center">
+              <p
+                className={`font-medium ${getColor(
+                  parseFloat(energyData?.batt || "0"),
+                  -5,
+                  5
+                )}`}
+              >
+                Batt: {parseFloat(energyData?.batt || "0")}
+              </p>
+              <Arrow
+                type={parseFloat(energyData?.batt || "0") >= 0 ? "down" : "up"}
+                className={`text-[150px] ${getColor(
+                  parseFloat(energyData?.batt || "0"),
+                  -5,
+                  5
+                )}`}
+              />
+            </div>
           </div>
         </div>
-        <div className="flex justify-center">
-          {parseFloat(energyData?.batt || "0") > 0 && <Arrow type={"right"} />}
-
-          <Lottie
-            options={{ ...defaultOptions, animationData: gridAnimationData }}
-            height={300}
-            width={300}
-            style={{
-              margin: 0,
-            }}
-          />
-          {parseFloat(energyData?.batt || "0") <= 0 && <Arrow type={"right"} />}
+        <div className="flex justify-center items-center">
+          <div>
+            <p
+              className={`font-medium ${getColor(
+                parseFloat(energyData?.grid || "0"),
+                -6,
+                10
+              )}`}
+            >
+              Grid: {parseFloat(energyData?.grid || "0")}
+            </p>
+            <GiWatchtower
+              className={`text-[200px] ${getColor(
+                parseFloat(energyData?.grid || "0"),
+                -6,
+                10
+              )}`}
+            />
+          </div>
+          <div>
+            <p
+              className={`font-medium ${getColor(
+                parseFloat(energyData?.grid || "0"),
+                -6,
+                10
+              )}`}
+            >
+              Grid: {parseFloat(energyData?.grid || "0")}
+            </p>
+            <Arrow
+              type={parseFloat(energyData?.grid || "0") <= 0 ? "right" : "left"}
+              className={`text-[150px] ${getColor(
+                parseFloat(energyData?.grid || "0"),
+                -6,
+                10
+              )}`}
+            />
+          </div>
         </div>
       </div>
     </div>

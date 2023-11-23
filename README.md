@@ -39,3 +39,16 @@
 7. if powerwall_connection_status is 0, it showing a red cross on the Web Page graphics and a big text “DATA NON AVAILABLE” is shwoing.
 8. Date and time showing on the top of the webpage.
 9. The webpage is getting refreshed every 7 seconds.
+
+### Update (11/23/2023)
+
+1. Home, battery, arrow and grid are converted to svg icons as I need 5 different color for different values.
+2. The values of each component are showing at the top of each component
+3. Now for home, battery and grid I am showing 5 different colors for different range of values. For example for batt value,
+   - 0 - 19 showing #F00000
+   - 20 - 39 showing #EE6300
+   - 40 - 59 showing #EE8B00
+   - 60 - 79 showing #006FEE
+   - 80 - 100 showing #53BD15
+
+showing same color code for other values depending on specific range
