@@ -51,6 +51,18 @@ function App() {
         console.error(response);
       }
       const data = await response.json();
+
+      const propertiesToCheck = ["batt_perc", "batt", "solar", "home", "grid"];
+
+      propertiesToCheck.forEach((property) => {
+        if (
+          parseFloat(data[property]) >= -0.099 &&
+          parseFloat(data[property]) <= 0.099
+        ) {
+          data[property] = "0";
+        }
+      });
+
       setEnergyData(data);
       setLoadingData(false);
     } catch (error) {
@@ -80,6 +92,9 @@ function App() {
         <h2 className="text-white font-medium text-xl">
           {new Date(energyData?.date || "").toDateString()}
         </h2>
+        <p className="text-white font-medium text-lg mt-3">
+          Time: {energyData?.time}
+        </p>
         <div className="flex flex-col items-center justify-center">
           <p
             className={`font-medium relative top-10 ${getColor(
@@ -99,8 +114,8 @@ function App() {
             width={200}
           />
         </div>
-        <div className="flex justify-center items-center gap-80 my-20">
-          <div>
+        <div className="grid grid-cols-3 my-10 md:my-20">
+          <div className="flex flex-col items-center justify-center ml-auto">
             <p
               className={`font-medium ${getColor(
                 parseFloat(energyData?.home || "0"),
@@ -111,73 +126,14 @@ function App() {
               Home: {parseFloat(energyData?.home || "0")}
             </p>
             <FaHome
-              className={`text-[200px] ${getColor(
+              className={`text-[100px] md:text-[200px] ${getColor(
                 parseFloat(energyData?.home || "0"),
                 0,
                 9
               )}`}
             />
           </div>
-          <div className="flex justify-center">
-            <div>
-              <p
-                className={`font-medium ${getColor(
-                  parseFloat(energyData?.batt_perc || "0"),
-                  0,
-                  100
-                )}`}
-              >
-                Battery Percentage: {parseFloat(energyData?.batt_perc || "0")}
-              </p>
-              <MdBatteryChargingFull
-                className={`text-[200px] ${getColor(
-                  parseFloat(energyData?.batt_perc || "0"),
-                  0,
-                  100
-                )}`}
-              />
-            </div>
-            <div className="flex  flex-col justify-center items-center">
-              <p
-                className={`font-medium ${getColor(
-                  parseFloat(energyData?.batt || "0"),
-                  -5,
-                  5
-                )}`}
-              >
-                Batt: {parseFloat(energyData?.batt || "0")}
-              </p>
-              <Arrow
-                type={parseFloat(energyData?.batt || "0") >= 0 ? "down" : "up"}
-                className={`text-[150px] ${getColor(
-                  parseFloat(energyData?.batt || "0"),
-                  -5,
-                  5
-                )}`}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex justify-center items-center">
-          <div>
-            <p
-              className={`font-medium ${getColor(
-                parseFloat(energyData?.grid || "0"),
-                -6,
-                10
-              )}`}
-            >
-              Grid: {parseFloat(energyData?.grid || "0")}
-            </p>
-            <GiWatchtower
-              className={`text-[200px] ${getColor(
-                parseFloat(energyData?.grid || "0"),
-                -6,
-                10
-              )}`}
-            />
-          </div>
-          <div>
+          <div className="flex flex-col items-center justify-center">
             <p
               className={`font-medium ${getColor(
                 parseFloat(energyData?.grid || "0"),
@@ -188,11 +144,91 @@ function App() {
               Grid: {parseFloat(energyData?.grid || "0")}
             </p>
             <Arrow
-              type={parseFloat(energyData?.grid || "0") <= 0 ? "right" : "left"}
-              className={`text-[150px] ${getColor(
+              type={parseFloat(energyData?.grid || "0") < 0 ? "left" : "right"}
+              className={`text-[80px] md:text-[150px] ${getColor(
                 parseFloat(energyData?.grid || "0"),
                 -6,
                 10
+              )}`}
+            />
+          </div>
+          <div className="flex justify-center items-center mr-auto">
+            <div>
+              <p
+                className={`font-medium ${getColor(
+                  parseFloat(energyData?.grid || "0"),
+                  -6,
+                  10
+                )}`}
+              >
+                Grid: {parseFloat(energyData?.grid || "0")}
+              </p>
+              <GiWatchtower
+                className={`text-[100px] md:text-[200px] ${getColor(
+                  parseFloat(energyData?.grid || "0"),
+                  -6,
+                  10
+                )}`}
+              />
+            </div>
+            {/* <div>
+              <p
+                className={`font-medium ${getColor(
+                  parseFloat(energyData?.grid || "0"),
+                  -6,
+                  10
+                )}`}
+              >
+                Grid: {parseFloat(energyData?.grid || "0")}
+              </p>
+              <Arrow
+                type={
+                  parseFloat(energyData?.grid || "0") <= 0 ? "right" : "left"
+                }
+                className={`text-[150px] ${getColor(
+                  parseFloat(energyData?.grid || "0"),
+                  -6,
+                  10
+                )}`}
+              />
+            </div> */}
+          </div>
+        </div>
+        <div className="flex justify-center items-end">
+          <div className="w-[100px] md:w-[200px]">
+            <p
+              className={`font-medium ${getColor(
+                parseFloat(energyData?.batt_perc || "0"),
+                0,
+                100
+              )}`}
+            >
+              Battery Percentage: {parseFloat(energyData?.batt_perc || "0")}
+            </p>
+            <MdBatteryChargingFull
+              className={`text-[100px] md:text-[200px] ${getColor(
+                parseFloat(energyData?.batt_perc || "0"),
+                0,
+                100
+              )}`}
+            />
+          </div>
+          <div className="flex  flex-col justify-center items-center">
+            <p
+              className={`font-medium ${getColor(
+                parseFloat(energyData?.batt || "0"),
+                -5,
+                5
+              )}`}
+            >
+              Batt: {parseFloat(energyData?.batt || "0")}
+            </p>
+            <Arrow
+              type={parseFloat(energyData?.batt || "0") >= 0 ? "down" : "up"}
+              className={`text-[100px] md:text-[200px] ${getColor(
+                parseFloat(energyData?.batt || "0"),
+                -5,
+                5
               )}`}
             />
           </div>
