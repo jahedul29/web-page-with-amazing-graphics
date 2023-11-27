@@ -3,10 +3,8 @@ import Lottie from "react-lottie";
 import "./App.css";
 
 import { FaHome } from "react-icons/fa";
-import { MdBatteryChargingFull } from "react-icons/md";
-// import batteryFullAnimationData from "./assets/lotties/battery-full.json";
-// import batteryLowAnimationData from "./assets/lotties/battery-low.json";
 import { GiWatchtower } from "react-icons/gi";
+import { MdBatteryChargingFull } from "react-icons/md";
 import cloudAnimationData from "./assets/lotties/cloud.json";
 import sunWithCloudAnimationData from "./assets/lotties/sun-with-cloud.json";
 import sunAnimationData from "./assets/lotties/sun.json";
@@ -171,27 +169,6 @@ function App() {
                 )}`}
               />
             </div>
-            {/* <div>
-              <p
-                className={`font-medium ${getColor(
-                  parseFloat(energyData?.grid || "0"),
-                  -6,
-                  10
-                )}`}
-              >
-                Grid: {parseFloat(energyData?.grid || "0")}
-              </p>
-              <Arrow
-                type={
-                  parseFloat(energyData?.grid || "0") <= 0 ? "right" : "left"
-                }
-                className={`text-[150px] ${getColor(
-                  parseFloat(energyData?.grid || "0"),
-                  -6,
-                  10
-                )}`}
-              />
-            </div> */}
           </div>
         </div>
         <div className="flex justify-center items-end">
