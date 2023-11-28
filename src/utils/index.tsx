@@ -8,19 +8,19 @@ export const getColor = (value: number, min: number, max: number): string => {
   }
 
   if (value < min + step) {
-    return "text-[#F00000] ";
+    return `text-[#F00000]`;
   } else if (value < min + 2 * step) {
-    return "text-[#EE6300] ";
+    return `text-[#EE6300]`;
   } else if (value < min + 3 * step) {
-    return "text-[#EE8B00] ";
+    return `text-[#EE8B00]`;
   } else if (value < min + 4 * step) {
-    return "text-[#006FEE] ";
+    return `text-[#006FEE]`;
   } else {
-    return "text-[#53BD15] ";
+    return `text-[#53BD15] `;
   }
 };
 
-export const getGridImageUrl = (
+export const getFillColor = (
   value: number,
   min: number,
   max: number
@@ -34,15 +34,15 @@ export const getGridImageUrl = (
   }
 
   if (value < min + step) {
-    return "text-[#F00000] ";
+    return `fill-[#F00000]`;
   } else if (value < min + 2 * step) {
-    return "text-[#EE6300] ";
+    return `fill-[#EE6300]`;
   } else if (value < min + 3 * step) {
-    return "text-[#EE8B00] ";
+    return `fill-[#EE8B00]`;
   } else if (value < min + 4 * step) {
-    return "text-[#006FEE] ";
+    return `fill-[#006FEE]`;
   } else {
-    return "text-[#53BD15] ";
+    return `fill-[#53BD15] `;
   }
 };
 

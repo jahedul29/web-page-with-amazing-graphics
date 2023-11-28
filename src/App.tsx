@@ -3,14 +3,15 @@ import Lottie from "react-lottie";
 import "./App.css";
 
 import { FaHome } from "react-icons/fa";
-import { GiWatchtower } from "react-icons/gi";
+// import { GiWatchtower } from "react-icons/gi";
 import { MdBatteryChargingFull } from "react-icons/md";
 import cloudAnimationData from "./assets/lotties/cloud.json";
 import sunWithCloudAnimationData from "./assets/lotties/sun-with-cloud.json";
 import sunAnimationData from "./assets/lotties/sun.json";
 import Arrow from "./components/Arrow";
+import GridSvg from "./components/GridSvg";
 import Overlay from "./components/Overlay";
-import { defaultLottieOptions, getColor } from "./utils";
+import { defaultLottieOptions, getColor, getFillColor } from "./utils";
 
 type IEnergyData = {
   batt: string;
@@ -143,11 +144,9 @@ function App() {
             </p>
             <Arrow
               type={parseFloat(energyData?.grid || "0") < 0 ? "left" : "right"}
-              className={`text-[80px] md:text-[150px] ${getColor(
-                parseFloat(energyData?.grid || "0"),
-                -6,
-                10
-              )}`}
+              className={`text-[80px] md:text-[150px] ${
+                parseFloat(energyData?.grid || "0") === 0 ? "!text-[#000]" : ""
+              } ${getColor(parseFloat(energyData?.grid || "0"), -6, 10)}`}
             />
           </div>
           <div className="flex justify-center items-center mr-auto">
@@ -161,8 +160,9 @@ function App() {
               >
                 Grid: {parseFloat(energyData?.grid || "0")}
               </p>
-              <GiWatchtower
-                className={`text-[100px] md:text-[200px] ${getColor(
+
+              <GridSvg
+                className={`text-[100px] md:text-[200px] ${getFillColor(
                   parseFloat(energyData?.grid || "0"),
                   -6,
                   10
@@ -202,11 +202,9 @@ function App() {
             </p>
             <Arrow
               type={parseFloat(energyData?.batt || "0") >= 0 ? "down" : "up"}
-              className={`text-[100px] md:text-[200px] ${getColor(
-                parseFloat(energyData?.batt || "0"),
-                -5,
-                5
-              )}`}
+              className={`text-[100px] md:text-[200px] ${
+                parseFloat(energyData?.batt || "0") === 0 ? "!text-[#000]" : ""
+              } ${getColor(parseFloat(energyData?.batt || "0"), -5, 5)}`}
             />
           </div>
         </div>
