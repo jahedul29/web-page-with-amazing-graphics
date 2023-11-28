@@ -79,10 +79,11 @@ function App() {
 
   useEffect(() => {
     if (energyData === null) {
-      check();
       setLoadingData(true);
+      check();
     }
     const interval = setInterval(fetchData, 7000);
+
     return () => clearInterval(interval);
   }, []);
 

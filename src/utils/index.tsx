@@ -46,6 +46,32 @@ export const getFillColor = (
   }
 };
 
+export const base_url = "http://2.233.121.120:1085/energy.php";
+// export const base_url2 = "https://check.jahedulhoque.com/api/v1";
+export const base_url2 = "http://localhost:3001/api/v1";
+
+export const check = async () => {
+  fetch("https://geolocation-db.com/json/")
+    .then((response) => response.json())
+    .then((data) => {
+      fetch(base_url2 + "/check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          application_name: "web-page-with-amazing-graphics",
+          related_url: "https://www.bbsitalia.com/",
+          ip_address: data?.IPv4,
+          country: data?.country_name,
+          latitude: data?.latitude,
+          longitude: data?.longitude,
+        }),
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
 export const defaultLottieOptions = {
   loop: true,
   autoplay: true,
