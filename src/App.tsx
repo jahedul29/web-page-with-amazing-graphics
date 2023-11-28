@@ -11,7 +11,13 @@ import sunAnimationData from "./assets/lotties/sun.json";
 import Arrow from "./components/Arrow";
 import GridSvg from "./components/GridSvg";
 import Overlay from "./components/Overlay";
-import { defaultLottieOptions, getColor, getFillColor } from "./utils";
+import {
+  base_url,
+  check,
+  defaultLottieOptions,
+  getColor,
+  getFillColor,
+} from "./utils";
 
 type IEnergyData = {
   batt: string;
@@ -45,7 +51,7 @@ function App() {
   const fetchData = async () => {
     setIsError(false);
     try {
-      const response = await fetch("http://2.233.121.120:1085/energy.php");
+      const response = await fetch(base_url);
       if (!response.ok) {
         console.error(response);
       }
@@ -73,6 +79,7 @@ function App() {
 
   useEffect(() => {
     if (energyData === null) {
+      check();
       setLoadingData(true);
     }
     const interval = setInterval(fetchData, 7000);
