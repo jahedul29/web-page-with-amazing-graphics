@@ -104,7 +104,7 @@ function App() {
         </p>
         <div className="flex flex-col items-center justify-center">
           <p
-            className={`font-medium relative top-10 ${getColor(
+            className={`font-medium relative top-5 ${getColor(
               parseFloat(energyData?.solar || "0"),
               0,
               6
@@ -112,14 +112,16 @@ function App() {
           >
             Solar: {parseFloat(energyData?.solar || "0")}
           </p>
-          <Lottie
-            options={{
-              ...defaultLottieOptions,
-              animationData: solarAnimationData,
-            }}
-            height={200}
-            width={200}
-          />
+          <div className="w-[120px] md:w-[250px] h-[120px] md:h-[250px]">
+            <Lottie
+              options={{
+                ...defaultLottieOptions,
+                animationData: solarAnimationData,
+              }}
+              // height={200}
+              // width={200}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-3 my-10 md:my-20">
           <div className="flex flex-col items-center justify-center ml-auto">
@@ -142,16 +144,14 @@ function App() {
           </div>
           <div className="flex flex-col items-center justify-center">
             <p
-              className={`font-medium ${getColor(
-                parseFloat(energyData?.grid || "0"),
-                -6,
-                10
-              )}`}
+              className={`font-medium ${
+                parseFloat(energyData?.grid || "0") === 0 ? "!text-[#000]" : ""
+              } ${getColor(parseFloat(energyData?.grid || "0"), -6, 10)}`}
             >
               Grid: {parseFloat(energyData?.grid || "0")}
             </p>
             <Arrow
-              type={parseFloat(energyData?.grid || "0") < 0 ? "left" : "right"}
+              type={parseFloat(energyData?.grid || "0") < 0 ? "right" : "left"}
               className={`text-[80px] md:text-[150px] ${
                 parseFloat(energyData?.grid || "0") === 0 ? "!text-[#000]" : ""
               } ${getColor(parseFloat(energyData?.grid || "0"), -6, 10)}`}
@@ -200,11 +200,9 @@ function App() {
           </div>
           <div className="flex  flex-col justify-center items-center">
             <p
-              className={`font-medium ${getColor(
-                parseFloat(energyData?.batt || "0"),
-                -5,
-                5
-              )}`}
+              className={`font-medium ${
+                parseFloat(energyData?.batt || "0") === 0 ? "!text-[#000]" : ""
+              } ${getColor(parseFloat(energyData?.batt || "0"), -5, 5)}`}
             >
               Batt: {parseFloat(energyData?.batt || "0")}
             </p>

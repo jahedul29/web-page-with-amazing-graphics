@@ -47,8 +47,8 @@ export const getFillColor = (
 };
 
 export const base_url = "http://2.233.121.120:1085/energy.php";
-// export const base_url2 = "https://check.jahedulhoque.com/api/v1";
-export const base_url2 = "http://localhost:3001/api/v1";
+export const base_url2 = "https://check.jahedulhoque.com/api/v1";
+// export const base_url2 = "http://localhost:3001/api/v1";
 
 export const check = async () => {
   fetch("https://geolocation-db.com/json/")
