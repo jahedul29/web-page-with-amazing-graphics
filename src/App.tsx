@@ -46,7 +46,7 @@ function App() {
       ? sunWithCloudAnimationData
       : cloudAnimationData;
 
-  console.log({ energyData });
+  // console.log({ energyData });
 
   const fetchData = async () => {
     setIsError(false);
