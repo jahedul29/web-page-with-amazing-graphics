@@ -121,6 +121,12 @@ function App() {
               // height={200}
               // width={200}
             />
+            <Arrow
+              type={"down"}
+              className={`text-[80px] md:text-[150px] relative right-16  md:right-32 top-8 md:top-12 -rotate-[45deg] ${
+                parseFloat(energyData?.grid || "0") >= 0 ? "!text-[#000]" : ""
+              } ${getColor(parseFloat(energyData?.grid || "0"), -6, 10)}`}
+            />
           </div>
         </div>
         <div className="grid grid-cols-3 my-10 md:my-20">
@@ -143,17 +149,17 @@ function App() {
             />
           </div>
           <div className="flex flex-col items-center justify-center">
-            <p
+            {/* <p
               className={`font-medium ${
-                parseFloat(energyData?.grid || "0") === 0 ? "!text-[#000]" : ""
+                parseFloat(energyData?.grid || "0") <= 0 ? "!text-[#000]" : ""
               } ${getColor(parseFloat(energyData?.grid || "0"), -6, 10)}`}
             >
               Grid: {parseFloat(energyData?.grid || "0")}
-            </p>
+            </p> */}
             <Arrow
-              type={parseFloat(energyData?.grid || "0") < 0 ? "right" : "left"}
+              type={"left"}
               className={`text-[80px] md:text-[150px] ${
-                parseFloat(energyData?.grid || "0") === 0 ? "!text-[#000]" : ""
+                parseFloat(energyData?.grid || "0") <= 0 ? "!text-[#000]" : ""
               } ${getColor(parseFloat(energyData?.grid || "0"), -6, 10)}`}
             />
           </div>
